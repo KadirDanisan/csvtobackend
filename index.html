@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ürün Dosyası Yükleme</title>
+</head>
+<body>
+    <h1>Ürün Bilgilerini İçeren CSV Dosyasını Yükleyin</h1>
+    
+    <form id="upload-form">
+        <input type="file" name="file" id="file-input" accept=".csv" required>
+        <button type="submit">Yükle ve Veritabanını Güncelle</button>
+    </form>
+    
+    <div id="status-message" style="margin-top: 15px; font-family: sans-serif;"></div>
+
+    <script>
+        // Gerekli HTML elemanlarını seçiyoruz.
+        const uploadForm = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-input');
+        const statusMessage = document.getElementById('status-message');
+
+        // Formun "submit" (gönderilme) olayını dinliyoruz.
+        uploadForm.addEventListener('submit', async (event) => {
+            // Formun varsayılan sayfa yenileme davranışını engelliyoruz.
+            event.preventDefault();
+
+            // === DİKKAT: API ADRESİNİ GÜNCELLEDİK ===
+            // C# projenizin tam adresini buraya yazıyoruz. 
+            // Controller rotası "api/products", metodun rotası "upload" olduğu için tam adres budur.
+            const apiUrl = 'http://localhost:5021/api/products/upload';
+            
+            const file = fileInput.files[0];
+            if (!file) {
+                statusMessage.textContent = 'Lütfen bir dosya seçin.';
+                statusMessage.style.color = 'red';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            statusMessage.textContent = 'Dosya yükleniyor, lütfen bekleyin...';
+            statusMessage.style.color = 'blue';
+
+            try {
+                // fetch API'si ile dosyayı sunucuya gönderiyoruz.
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                // Sunucudan gelen cevabı kontrol ediyoruz.
+                if (response.ok) {
+                    const result = await response.json();
+                    statusMessage.textContent = 'Başarılı: ' + result.message;
+                    statusMessage.style.color = 'green';
+                } else {
+                    const errorText = await response.text();
+                    statusMessage.textContent = `Hata: ${response.status} - ${errorText}`;
+                    statusMessage.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Gönderim sırasında bir hata oluştu:', error);
+                statusMessage.textContent = 'Ağ hatası veya sunucuya ulaşılamıyor. API adresini ve C# projenizin çalıştığını kontrol edin.';
+                statusMessage.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
