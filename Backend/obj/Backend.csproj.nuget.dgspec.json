@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/kadirdanisan/icons/Backend/Backend.csproj": {}
+    "/Users/kadirdanisan/csvtobackend/Backend/Backend.csproj": {}
   },
   "projects": {
-    "/Users/kadirdanisan/icons/Backend/Backend.csproj": {
+    "/Users/kadirdanisan/csvtobackend/Backend/Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kadirdanisan/icons/Backend/Backend.csproj",
+        "projectUniqueName": "/Users/kadirdanisan/csvtobackend/Backend/Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "/Users/kadirdanisan/icons/Backend/Backend.csproj",
+        "projectPath": "/Users/kadirdanisan/csvtobackend/Backend/Backend.csproj",
         "packagesPath": "/Users/kadirdanisan/.nuget/packages/",
-        "outputPath": "/Users/kadirdanisan/icons/Backend/obj/",
+        "outputPath": "/Users/kadirdanisan/csvtobackend/Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/kadirdanisan/.nuget/NuGet/NuGet.Config"
